@@ -1,0 +1,33 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: efs-pv-frontend
+spec:
+  capacity:
+    storage: 1Gi
+    # This is required but ignored by EFS
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+    # EFS supports multiple writers
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: efs-sc
+  # Storage class name for EFS
+  csi:
+    driver: efs.csi.aws.com
+    volumeHandle: {{.Values.efs.fileSystemId}}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: efs-pvc-frontend
+  namespace: js-app
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+      # Required, but not enforced in EFS
+  storageClassName: efs-sc

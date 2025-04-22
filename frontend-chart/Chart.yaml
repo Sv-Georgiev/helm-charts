@@ -1,0 +1,5 @@
+---
+apiVersion: v2
+name: javascript-chart
+description: A Helm chart for deploying a JavaScript application
+version: 0.1.0
