@@ -2,23 +2,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: javascript-chart
+  name: frontend-chart
   labels:
-    app.kubernetes.io/name: javascript-chart
-    helm.sh/chart: {{include "javascript-chart.chart" .}}
-    app.kubernetes.io/instance: javascript-chart
+    app.kubernetes.io/name: frontend-chart
+    helm.sh/chart: {{include "frontend-chart.chart" .}}
+    app.kubernetes.io/instance: frontend-chart
     app.kubernetes.io/managed-by: {{.Release.Service}}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: javascript-chart
-      app.kubernetes.io/instance: javascript-chart
+      app.kubernetes.io/name: frontend-chart
+      app.kubernetes.io/instance: frontend-chart
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: javascript-chart
-        app.kubernetes.io/instance: javascript-chart
+        app.kubernetes.io/name: frontend-chart
+        app.kubernetes.io/instance: frontend-chart
     spec:
       tolerations:
         - effect: NoSchedule
@@ -26,7 +26,7 @@ spec:
         - effect: NoExecute
           operator: Exists
       containers:
-        - name: javascript-chart
+        - name: frontend-chart
           image: "{{.Values.image.repository}}:{{.Values.image.tag}}"
           imagePullPolicy: {{.Values.image.pullPolicy}}
           ports:
