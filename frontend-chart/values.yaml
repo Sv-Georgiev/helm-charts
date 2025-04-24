@@ -1,6 +1,6 @@
 ---
 image:
-  repository: 772728963654.dkr.ecr.eu-central-1.amazonaws.com/js-app
+  repository: 772728963654.dkr.ecr.eu-central-1.amazonaws.com/frontend-ui
   tag: latest
   pullPolicy: Always
 
@@ -19,4 +19,4 @@ ingress:
   tls: []
 
 efs:
-  fileSystemId: fs-0301b8ac909be1ddc
+  fileSystemId: fs-0c5e240640ef84720
