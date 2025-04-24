@@ -1,11 +1,11 @@
-{{- define "javascript-chart.fullname" -}}
-javascript-chart
+{{- define "frontend-chart.fullname" -}}
+frontend-chart
 {{- end -}}
 
-{{- define "javascript-chart.name" -}}
+{{- define "frontend-chart.name" -}}
 {{ .Chart.Name }}
 {{- end -}}
 
-{{- define "javascript-chart.chart" -}}
+{{- define "frontend-chart.chart" -}}
 {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
 {{- end -}}
