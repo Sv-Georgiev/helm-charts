@@ -24,4 +24,3 @@ ingress:
 
 efs:
   fileSystemId: fs-0252a4147bd932bc6
-  
