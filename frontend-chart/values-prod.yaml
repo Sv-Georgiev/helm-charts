@@ -1,0 +1,22 @@
+---
+image:
+  repository: 772728963654.dkr.ecr.eu-central-1.amazonaws.com/js-app-prod
+  tag: latest
+  pullPolicy: Always
+
+replicaCount: 3
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths: []
+  tls: []
+
+efs:
+  fileSystemId: fs-0252a4147bd932bc6
