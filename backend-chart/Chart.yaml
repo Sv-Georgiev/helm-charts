@@ -1,0 +1,5 @@
+---
+apiVersion: v2
+name: laravel-api
+description: A Helm chart for deploying the Laravel API application
+version: 0.1.0

@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: laravel-api
+spec:
+  selector:
+    app.kubernetes.io/name: {{include "laravel-api.name" .}}
+    app.kubernetes.io/instance: {{include "laravel-api.fullname" .}}
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP

@@ -1,0 +1,25 @@
+---
+image:
+  repository: 772728963654.dkr.ecr.eu-central-1.amazonaws.com/nginx-repo
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/cross-zone-load-balancing-enabled: "true"
+
+  hosts:
+    - host: testing.sometestingpurpose.xyz
+      paths:
+        - path: /
+          pathType: Prefix
+          
+efs:
+  fileSystemId: fs-0252a4147bd932bc6

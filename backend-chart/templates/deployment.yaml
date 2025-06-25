@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{include "laravel-api.fullname" .}}
+  labels:
+    app.kubernetes.io/name: {{include "laravel-api.name" .}}
+    helm.sh/chart: {{include "laravel-api.chart" .}}
+    app.kubernetes.io/instance: {{include "laravel-api.fullname" .}}
+    app.kubernetes.io/managed-by: {{.Release.Service}}
+spec:
+  replicas: {{.Values.replicaCount}}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{include "laravel-api.name" .}}
+      app.kubernetes.io/instance: {{include "laravel-api.fullname" .}}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{include "laravel-api.name" .}}
+        app.kubernetes.io/instance: {{include "laravel-api.fullname" .}}
+    spec:
+      serviceAccountName: laravel-api-sa
+      # Ensure this SA is linked to an IAM role with SSM access
+      containers:
+        - name: laravel-api
+          image: "{{.Values.image.repository}}:{{.Values.image.tag}}"
+          imagePullPolicy: {{.Values.image.pullPolicy}}
+          ports:
+            - name: http
+              containerPort: 80
+          volumeMounts:
+            - mountPath: /var/log/laravel
+            # Directory for logs
+              name: efs-logs
+      volumes:
+        - name: efs-logs
+          persistentVolumeClaim:
+            claimName: efs-pvc-backend

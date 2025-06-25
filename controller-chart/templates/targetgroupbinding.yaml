@@ -1,0 +1,12 @@
+---
+apiVersion: elbv2.k8s.aws/v1beta1
+kind: TargetGroupBinding
+metadata:
+  name: nginx-chart-tgb
+  namespace: {{ .Release.Namespace }}
+spec:
+  targetGroupARN: arn:aws:elasticloadbalancing:eu-central-1:772728963654:targetgroup/tauri-tg/978f2214b634420f
+  serviceRef:
+    name: {{ include "nginx-chart.fullname" . }}
+    port: {{ .Values.service.port }}
+  targetType: ip

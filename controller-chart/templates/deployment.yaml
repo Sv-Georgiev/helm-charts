@@ -2,23 +2,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: javascript-chart
+  name: nginx-chart
   labels:
-    app.kubernetes.io/name: javascript-chart
-    helm.sh/chart: {{include "javascript-chart.chart" .}}
-    app.kubernetes.io/instance: javascript-chart
+    app.kubernetes.io/name: nginx-chart
+    helm.sh/chart: {{include "nginx-chart.chart" .}}
+    app.kubernetes.io/instance: nginx-chart
     app.kubernetes.io/managed-by: {{.Release.Service}}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: javascript-chart
-      app.kubernetes.io/instance: javascript-chart
+      app.kubernetes.io/name: nginx-chart
+      app.kubernetes.io/instance: nginx-chart
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: javascript-chart
-        app.kubernetes.io/instance: javascript-chart
+        app.kubernetes.io/name: nginx-chart
+        app.kubernetes.io/instance: nginx-chart
     spec:
       tolerations:
         - effect: NoSchedule
@@ -26,17 +26,17 @@ spec:
         - effect: NoExecute
           operator: Exists
       containers:
-        - name: javascript-chart
+        - name: nginx-chart
           image: "{{.Values.image.repository}}:{{.Values.image.tag}}"
           imagePullPolicy: {{.Values.image.pullPolicy}}
           ports:
             - name: http
               containerPort: 80
           volumeMounts:
-            - mountPath: /var/log/frontend
-            # Directory for logs
-              name: efs-logs
+            - name: efs-logs
+              mountPath: /var/log/nginx
+              # Mount EFS here for logs
       volumes:
         - name: efs-logs
           persistentVolumeClaim:
-            claimName: efs-pvc-frontend
+            claimName: efs-pvc-nginx
