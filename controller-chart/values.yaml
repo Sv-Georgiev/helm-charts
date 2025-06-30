@@ -16,10 +16,10 @@ ingress:
     alb.ingress.kubernetes.io/cross-zone-load-balancing-enabled: "true"
 
   hosts:
-    - host: testing.sometestingpurpose.xyz
+    - host: testing.advisionit.net
       paths:
         - path: /
           pathType: Prefix
           
 efs:
-  fileSystemId: fs-0252a4147bd932bc6
+  fileSystemId: fs-09a21b56060a91db3
